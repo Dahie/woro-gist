@@ -2,6 +2,7 @@
 
 Gist-Adapter for Woro remote task management
 
+Using Github's gist, you keep version control of the tasks and can share them with colleagues.
 
 ## Woro adapters
 

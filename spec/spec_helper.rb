@@ -1,5 +1,6 @@
 require 'woro'
 require 'woro-gist'
+require 'fakefs/safe'
 
 Dir[('./spec/support/**/*.rb')].each {|f| require f}
 

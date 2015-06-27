@@ -5,6 +5,31 @@ module Woro
     class Gist < Base
       attr_reader :gist_id
 
+      # Setup configuration for adapter
+      # Highline CLI helpers can be used for interactivity.
+      # @return [Hash] Configuration options
+      def self.setup
+        if agree 'Login to Gist/Github for private Woro tasks (Yes/No)?  '
+          ::Gist.login!
+        end
+
+        # create Gist with welcome file
+        # additional tasks will be added to this first gist
+        begin
+          require File.join(Dir.pwd, 'config', 'application.rb')
+          app_name = Rails.application.class.parent_name
+        rescue LoadError
+          app_name = ask('Application name: ')
+        end
+
+        result = create_initial_remote_task(app_name)
+
+        {
+          gist_id: result['id'],
+          public: false
+        }
+      end
+
       # Create a new gist collection adapter
       def initialize(options)
         @gist_id = options['gist_id']
@@ -12,7 +37,14 @@ module Woro
 
       # Returns the list of files included in the Gist
       # @return [Hash] List of files in the format { filename: { data }}
-      def list_keys
+      def list_files
+        gist['files'].keys
+      end
+
+      # Returns the list of rake files included in the remote collection
+      # with their contents.
+      # @return [Hash] List of files with their contents
+      def list_contents
         gist['files']
       end
 
@@ -20,7 +52,7 @@ module Woro
       # Existing contents by the same #file_name will be overriden, but
       # can be accessed via Github or Gist's API.
       def push(task)
-        ::Gist.multi_gist({ task.file_name => Woro::TaskHelper.read_task_file },
+        ::Gist.multi_gist({ task.file_name => task.read_task_file },
                         public: false,
                         update: gist_id,
                         output: :all)
@@ -73,7 +105,6 @@ module Woro
       def retrieve_file_data(file_name)
         gist['files'][file_name]
       end
-
     end
   end
 end

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    woro-gist (0.1.0)
+    woro-gist (0.0.1)
       gist
       woro
 
@@ -11,6 +11,7 @@ GEM
     commander (4.3.3)
       highline (~> 1.7.2)
     diff-lcs (1.2.5)
+    fakefs (0.6.7)
     gist (4.3.0)
     highline (1.7.2)
     rake (10.4.2)
@@ -31,15 +32,15 @@ GEM
       terminal-notifier (>= 1.4)
     rspec-support (3.3.0)
     terminal-notifier (1.6.3)
-    woro (0.1.0)
+    woro (0.2.2)
       commander
-      gist
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   bundler (~> 1.7)
+  fakefs
   rake (~> 10.0)
   rspec
   rspec-nc
