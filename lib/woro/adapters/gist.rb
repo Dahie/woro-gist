@@ -25,8 +25,8 @@ module Woro
         result = create_initial_remote_task(app_name)
 
         {
-          gist_id: result['id'],
-          public: false
+          'gist_id' => result['id'],
+          'public' =>  false
         }
       end
 
