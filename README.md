@@ -1,16 +1,25 @@
 # woro-gist
 
-Gist-Adapter for Woro remote task management
-
+Gist-Adapter for [Woro remote task management](https://github.com/github/woro).
 Using Github's gist, you keep version control of the tasks and can share them with colleagues.
-
-## Woro adapters
 
 ## Usage
 
+On initialization of a new project, you can choose and setup Gist-configuration with:
 
-Once you are done writing the task and you want to execute it on the remote system.
-First you have to push them online, in this case to Gist.
+```shell
+$ woro init
+```
+
+If you already have a configuration, you can add these lines to you `lib/config/woro.yml`
+
+```yaml
+adapters:
+  gist:
+    gist_id: <ID of gist you want to append task files to>
+```
+
+Use `gist` as adapter to upload your task to.
 
 ```shell
 $ woro push gist:cleanup_users
